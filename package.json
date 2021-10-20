@@ -1,0 +1,31 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnSkvortsova/movies-explorer-api.git"
+  },
+  "author": "Anastasiya Skvortsova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnSkvortsova/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/AnSkvortsova/movies-explorer-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.11"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "nodemon": "^2.0.13"
+  }
+}
