@@ -52,6 +52,13 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+const logout = (req, res) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+  });
+  throw new Unauthorized('Необходима авторизация');
+};
+
 const getAuthUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
@@ -89,6 +96,7 @@ const updateUser = (req, res, next) => {
 module.exports = {
   createUser,
   login,
+  logout,
   getAuthUser,
   updateUser,
 };

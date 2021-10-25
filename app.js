@@ -2,13 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const { celebrate, Joi, errors } = require('celebrate');
+const { errors } = require('celebrate');
 const helmet = require('helmet');
 
-const auth = require('./middlewares/auth');
-const { createUser, login } = require('./controllers/users');
-const routerUsers = require('./routes/users');
-const routerMovies = require('./routes/movies');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+const limiter = require('./middlewares/rateLimiter');
+const routes = require('./routes/index');
 const NotFound = require('./errors/NotFound');
 
 const { PORT } = process.env;
@@ -16,7 +15,7 @@ const { PORT } = process.env;
 const app = express();
 
 mongoose.connect(
-  'mongodb://localhost:27017/bitfilmsdb',
+  'mongodb://localhost:27017/moviesdb',
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -28,36 +27,14 @@ mongoose.connect(
 );
 
 app.use(helmet());
+app.use(limiter);
 app.use(express.json());
 app.use(cookieParser());
+app.use(requestLogger);
 
-app.post(
-  '/signup',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-      name: Joi.string().required().min(2).max(30),
-    }),
-  }),
-  createUser,
-);
+app.use(routes);
 
-app.post(
-  '/signin',
-  celebrate({
-    body: Joi.object().keys({
-      email: Joi.string().required().email(),
-      password: Joi.string().required().min(8),
-    }),
-  }),
-  login,
-);
-
-app.use(auth);
-
-app.use('/users', routerUsers);
-app.use('/movies', routerMovies);
+app.use(errorLogger);
 
 app.use((req, res, next) => {
   next(new NotFound('Маршрут не найден'));
