@@ -6,6 +6,7 @@ const { errors } = require('celebrate');
 const helmet = require('helmet');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const corsOptions = require('./middlewares/corsOptions');
 const limiter = require('./middlewares/rateLimiter');
 const routes = require('./routes/index');
 const NotFound = require('./errors/NotFound');
@@ -31,6 +32,7 @@ app.use(limiter);
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
+app.use(corsOptions);
 
 app.use(routes);
 
