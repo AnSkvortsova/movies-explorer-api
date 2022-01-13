@@ -56,7 +56,7 @@ const logout = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
   });
-  throw new Unauthorized('Необходима авторизация');
+  return res.send(200);
 };
 
 const getAuthUser = (req, res, next) => {
