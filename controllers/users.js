@@ -47,6 +47,7 @@ const login = (req, res, next) => {
           sameSite: 'none',
           secure: true,
         })
+        .send({ data: user })
         .end();
     })
     .catch(() => {
