@@ -43,6 +43,9 @@ const login = (req, res, next) => {
       res
         .cookie('jwt', token, {
           httpOnly: true,
+          maxAge: 60 * 60 * 24 * 7,
+          sameSite: 'none',
+          secure: true,
         })
         .end();
     })
@@ -55,6 +58,8 @@ const login = (req, res, next) => {
 const logout = (req, res) => {
   res.clearCookie('jwt', {
     httpOnly: true,
+    sameSite: 'none',
+    secure: true,
   });
   return res.send(200);
 };
