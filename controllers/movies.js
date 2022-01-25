@@ -5,8 +5,10 @@ const NotFound = require('../errors/NotFound');
 const Forbidden = require('../errors/Forbidden');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
-    .then((movies) => res.send({ movies }))
+  Movie.find({ owner: req.user._id })
+    .then((movies) => {
+      res.send(movies);
+    })
     .catch(next);
 };
 
