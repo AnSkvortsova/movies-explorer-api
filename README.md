@@ -1,5 +1,13 @@
 # movies-explorer-api
 
-## Домен, по которому можно обратиться к серверу: api.movielover.nomoredomains.work
+## Описание
+API проекта Movies Explorer с системами авторизации, регистрации пользователей и сохранением фильмов.
+Домен, по которому можно обратиться к серверу: api.movielover.nomoredomains.work
 
-### IP public: 84.252.129.240
+## Технологии
+expressJs, mongodb
+
+## Ссылка на проект
+https://api.movielover.nomoredomains.work
+
+Публичный IP: 51.250.6.25
